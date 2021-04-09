@@ -7,6 +7,7 @@ class BarChart extends Component {
     }
     drawChart() {
         const data = this.props.data;
+        const h =  this.props.height;
         const svg = d3.select('body')
             .append('svg')
             .attr('width', this.props.width)
@@ -17,9 +18,9 @@ class BarChart extends Component {
             .enter()
             .append("rect")
             .attr("x", (d, i) => i * 70)
-            .attr("y", 0)
+            .attr("y", (d, i) => h - 10 * d)
             .attr("width", 25)
-            .attr("height", (d, i) => d)
+            .attr("height", (d, i) => d * 10)
             .attr("fill", "green");
     }
 
