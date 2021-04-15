@@ -32,7 +32,6 @@ WHERE
   LOWER(covid.country_name) LIKE "%united states of america%" AND 
   covid.aggregation_level = 2 AND
   covid.subregion1_code = "CT"
-LIMIT 100;
 `
 
 
@@ -44,10 +43,8 @@ async function queryBQ(query) {
     };
     // run the query 
     const [rows] = await bigqueryClient.query(options);
-    console.log('Query results');
-    rows.forEach(row => {
-        console.log(row); 
-   })
+    console.log('Query processed');   
+    return rows;
 }
 
 queryBQ(aggQuery);
