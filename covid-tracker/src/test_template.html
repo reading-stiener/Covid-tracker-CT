@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link rel=”stylesheet” href=”style.css”>
-<title>My sample D3.js App</title>
-</head>
-<body>
-<h1>Bar Chart using D3.js</h1>
-<svg width="500" height="800" class="bar-chart"></svg>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="script.js"></script>
+  <head>
+    <link rel=”stylesheet” href=”style.css”>
+    <title>My sample D3.js App</title>
+  </head>
+  <body>
+    <h1>Bar Chart using D3.js</h1>
+    <p>First paragraph</p>
+    <p>Second paragraph</p>
+    <svg width="500" height="800" class="bar-chart"></svg>
+    <script src="https://d3js.org/d3.v5.min.js"></script> 
+    <script> 
+      var data = [100, 200, 300];
+      var paragraph = d3.select("body")
+        .selectAll("p")
+        .data(data)
+        .text(function (d, i) {
+            console.log("d: " + d);
+            console.log("i: " + i);
+            console.log("this: " + this);
+            return d;
+        });
+    </script>
+    <script>
+      var data = [4, 1, 6, 2, 8, 9];
+      var body = d3.select("body")
+                  .selectAll("span")
+                  .data(data)
+                  .enter()
+                  .append("span")
+                  .text(function(d) { return d + " "; });
+  </script>
+  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="BigQueryClient.js"></script>
 </body>
 </html>

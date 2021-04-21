@@ -2,7 +2,6 @@ const {BigQuery} = require('@google-cloud/bigquery');
 const bigqueryClient = new BigQuery(); 
 
 // relevant queries
-
 // overall aggregates
 const aggQuery = `
 SELECT
@@ -30,11 +29,9 @@ FROM
   \`bigquery-public-data.covid19_open_data.covid19_open_data\` covid
 WHERE 
   LOWER(covid.country_name) LIKE "%united states of america%" AND 
-  covid.aggregation_level = 2 AND
+  covid.aggregation_level = 1 AND
   covid.subregion1_code = "CT"
 `
-
-
 async function queryBQ(query) { 
     const options = {
         query: aggQuery,
@@ -43,10 +40,11 @@ async function queryBQ(query) {
     };
     // run the query 
     const [rows] = await bigqueryClient.query(options);
-    console.log('Query processed');   
+    console.log('Query processed');
+    console.log(rows);
     return rows;
 }
 
-queryBQ(aggQuery);
+module.exports = { queryBQ }; 
 
   
