@@ -41,7 +41,7 @@ async function queryBQ(query) {
     // run the query 
     const [rows] = await bigqueryClient.query(options);
     console.log('Query processed');
-    console.log(rows);
+    // console.log(rows);
     return rows;
 }
 
