@@ -21,13 +21,16 @@ app.get("/covidgendata", async (req, res) => {
     console.log(level);
     try {
         if (level == "state") { 
-            const covidData = await queryBQ(stateAgg);
+            const covidData = await queryBQ(stateQuery);
             res.json(covidData);
-        }
-        else if (level == "county") { 
-            const covidData = await queryBQ(countyAgg);
+        } else if (level == "county") { 
+            const covidData = await queryBQ(countyQuery);
             res.json(covidData);
-        }
+        } else if (level == "countyAgg") { 
+            const covidData = await queryBQ(countyAgg)
+            res.json(covidData);
+        } 
+    
     } catch (error) {
         console.log(error);
         res.status(500).json({ success: false, error: error });

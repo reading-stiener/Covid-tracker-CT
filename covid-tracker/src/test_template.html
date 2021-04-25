@@ -8,31 +8,14 @@
     <h1>Bar Chart using D3.js</h1>
     <p>First paragraph</p>
     <p>Second paragraph</p>
-    <div id="my_dataviz"></div>
-    <svg width="500" height="800" class="bar-chart"></svg>
+    <div id="my_dataviz"></div> 
+    <svg id="map_viz", width="960", height="600"> </svg>
     <script src="https://d3js.org/d3.v5.min.js"></script> 
-    <script> 
-      var data = [100, 200, 300];
-      var paragraph = d3.select("body")
-        .selectAll("p")
-        .data(data)
-        .text(function (d, i) {
-            console.log("d: " + d);
-            console.log("i: " + i);
-            console.log("this: " + this);
-            return d;
-        });
-    </script>
-    <script>
-      var data = [4, 1, 6, 2, 8, 9];
-      var body = d3.select("body")
-                  .selectAll("span")
-                  .data(data)
-                  .enter()
-                  .append("span")
-                  .text(function(d) { return d + " "; });
-  </script>
-  <script type="text/javascript" src="script.js"></script>
-  <script type="text/javascript" src="lineGraph.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+    <!-- <script type="text/javascript" src="lineGraph.js"></script> -->
+    <script type="text/javascript" src="map.js"></script>
 </body>
 </html>

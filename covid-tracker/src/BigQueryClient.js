@@ -2,7 +2,7 @@ const {BigQuery} = require('@google-cloud/bigquery');
 const bigqueryClient = new BigQuery(); 
 
 // relevant queries
-const stateAgg = `
+const stateQuery = `
 SELECT
   covid.subregion1_name AS province_state,
   covid.country_name AS country_region,
@@ -38,7 +38,7 @@ ORDER BY covid.date desc
 `
 
 // county level agg query
-const countyAgg = `
+const countyQuery = `
 SELECT
   covid.subregion1_name AS province_state,
   covid.country_name AS country_region,
@@ -73,6 +73,28 @@ WHERE
 ORDER BY covid.date desc
 `
 
+// county aggregates
+const countyAgg = `
+SELECT
+  covid.subregion2_name AS county,
+  covid.subregion2_code AS fips,
+  covid.location_key AS combined_key,
+  SUM(covid.cumulative_confirmed) AS confirmed,
+  SUM(covid.cumulative_deceased) AS deaths,
+  SUM(covid.cumulative_recovered) AS recovered,
+  SUM(covid.new_confirmed) as new_confirmed, 
+  SUM(covid.new_deceased) as new_deceased,
+  SUM(covid.new_persons_vaccinated) as new_person_vaccinated, 
+  SUM(covid.new_persons_fully_vaccinated) as new_persons_fully_vacinated,
+FROM
+  \`bigquery-public-data.covid19_open_data.covid19_open_data\` covid
+WHERE 
+  LOWER(covid.country_name) LIKE "%united states of america%" AND 
+  covid.aggregation_level = 2 AND
+  covid.subregion1_code = "CT"
+GROUP BY 1,2,3
+`
+
 async function queryBQ(query) { 
     const options = {
         query: query,
@@ -85,6 +107,6 @@ async function queryBQ(query) {
     return rows;
 }
 
-module.exports = { queryBQ, stateAgg, countyAgg }; 
+module.exports = { queryBQ, stateQuery, countyQuery, countyAgg }; 
 
   
