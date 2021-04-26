@@ -36,7 +36,7 @@ to see some real time covid data in CT!
 
 # Some visuals
 Here is a linechart that shows confirmed cases in CT over time
-[linechart](https://github.com/reading-stiener/Covid-tracker-CT/blob/main/covid-tracker/public/LineGraph.png)
+<img src="/covid-tracker/public/LineGraph.png" alt="linechart"/> 
 
 Here is a map chloropleth for the same metric for each county in CT
-[chloropleth](https://github.com/reading-stiener/Covid-tracker-CT/blob/main/covid-tracker/public/CT_map.png) 
+<img src="/covid-tracker/public/CT_map.png" alt="chloropleth"/> 
