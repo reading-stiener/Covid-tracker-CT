@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const cors = require('cors'); 
-const { queryBQ, stateAgg, countyAgg } = require("./BigQueryClient");
+const { queryBQ, stateQuery, countyQuery, countyAgg } = require("./BigQueryClient");
 
 const app = express();
 const port = 3000;
