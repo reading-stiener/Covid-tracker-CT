@@ -1,4 +1,4 @@
-function drawMap(selector) {
+async function drawMap(selector, metric) {
   var margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 1000 - margin.left - margin.right,
     height = 960 - margin.top - margin.bottom;
@@ -6,21 +6,26 @@ function drawMap(selector) {
   // the svg 
   var svg = d3.select(selector)
     // Container class to make it responsive.
-    .classed("svg-container", true) 
+    // .classed("svg-container", true) 
     .append("svg")
-    // Responsive SVG needs these 2 attributes and no width and height attr.
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 1000 960")
-    // Class to make it responsive.
-    .classed("svg-content-responsive", true)
+    // // Responsive SVG needs these 2 attributes and no width and height attr.
+    // .attr("preserveAspectRatio", "xMinYMin meet")
+    // .attr("viewBox", "0 0 1000 960")
+    // // Class to make it responsive.
+    // .classed("svg-content-responsive", true)
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+
+  // tooltip component
+  var tooltip = d3.select(selector).append('div')
+  .attr('class', 'hidden tooltip');
 
   // Map and projection
   var path = d3.geoPath();
 
   // Data and color scale
-  var confirmed = new Map();
+  var metricData  = new Map();
+  var fipsToCounty = new Map();
 
   var legendScale = d3.scaleLinear()
       .domain([1, 10])
@@ -65,32 +70,49 @@ function drawMap(selector) {
 
   var promises = [
     d3.json("ct-merge-topo.json", data => console.log(data)),
-    fetch("http://localhost:3000/covidgendata?type=countyAgg")
+    fetch("https://6ae9a61476c5.ngrok.io/covidgendata?type=countyAgg")
       .then(data => data.json())
       .then(data => {
         data.forEach(element => {
-          confirmed.set(element.fips, element.new_confirmed); 
+          metricData.set(element.fips, element[metric]);
+          fipsToCounty.set(element.fips, element.county);
         });
       })
   ]
   Promise.all(promises).then(ready)
 
   function ready([us]) { 
-    svg.append("g")
-    .attr("class", "counties")
-    .selectAll("path")
+    svg.append('g')
+    .attr('class', 'counties')
+    .attr('transform', 'translate(200,-200) rotate(25,0,0)')
+    .selectAll('.province')
     .data(topojson.feature(us, us.objects.counties).features)
-    .enter().append("path")
-      .attr("fill", function(d) {
-        var scaleVal = confirmed.get("09" +  d.id) / Math.max(...confirmed.values()) * 10;
-        return colorScale(d.confirmed = scaleVal); 
+    .enter().append('path')
+    .attr('class', d => {
+      return 'province ' + d.properties.STATEFP + d.properties.COUNTYFP;
+    })
+    .attr('fill', function(d) {
+        var scaleVal = metricData.get('09' +  d.id) / Math.max(...metricData.values()) * 10;
+        return colorScale(d[metric] = scaleVal); 
+    })
+    .attr('d', path)
+    .on('mousemove', d => {
+      var mouse = d3.mouse(svg.node()).map(d => {
+        return parseInt(d);
       })
-      .attr("d", path)
-      .append("title")
-      .text(function(d) { return d.confirmed + "%"; });
+      tooltip.classed('hidden', false)
+        .attr('style', 'left:' + (mouse[0])
+            +'px; top:' +  (mouse[1]) + 'px')
+        .attr('border-color', 'black')
+          .html(
+            '<span>' + fipsToCounty.get('09' +  d.id) + '</span> <br>'+
+            '<span>'+ metricData.get('09' +  d.id) + ' '+ metric + '</span>'
+          )
+    })
+    .on('mouseout', () => { 
+      tooltip.classed('hidden', true);
+    })
   }
 }
 
-
-
-drawMap("#map_viz");
+drawMap("#map_viz", "new_confirmed");

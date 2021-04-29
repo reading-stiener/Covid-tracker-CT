@@ -16,6 +16,11 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname+ "/test_template.html");
 });
 
+app.post("/", (req, res) => { 
+    console.log(req.body); 
+    res.send("received your request!!");
+});
+
 app.get("/covidgendata", async (req, res) => {
     var level = req.query.type;
     console.log(level);
@@ -35,7 +40,7 @@ app.get("/covidgendata", async (req, res) => {
         console.log(error);
         res.status(500).json({ success: false, error: error });
     }
-})
+});
 
 app.listen(port, () => {
     console.log("Server is running on localhost 3000");

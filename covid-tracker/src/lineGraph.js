@@ -1,4 +1,4 @@
-function drawLineChart(selector) { 
+async function drawLineChart(selector, metric) { 
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 30, bottom: 30, left: 60},
   width = 1000 - margin.left - margin.right,
@@ -13,7 +13,7 @@ function drawLineChart(selector) {
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-  fetch("http://localhost:3000/covidgendata?type=state")
+  fetch("https://6ae9a61476c5.ngrok.io/covidgendata?type=state")
   .then(data => data.json())
   .then(data => {
     var x = d3.scaleTime()
@@ -28,7 +28,7 @@ function drawLineChart(selector) {
 
     // Add Y axis
     var y = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) { return d.confirmed; })])
+    .domain([0, d3.max(data, function(d) { return d[metric]; })])
     .range([ height, 0 ]);
 
     svg.append("g")
@@ -41,11 +41,11 @@ function drawLineChart(selector) {
     .attr("stroke", "steelblue")
     .attr("stroke-width", 3)
     .attr("d", d3.line()
-      .defined(d => (!isNaN(d.confirmed) || d.confirmed!=0))
+      .defined(d => (!isNaN(d[metric]) || d[metric]!=0))
       .x(function(d) { return x(new Date(d.date.value)) })
-      .y(function(d) { return y(d.confirmed) })
+      .y(function(d) { return y(d[metric]) })
     )
   })
 }
 
-drawLineChart("#my_dataviz");
+drawLineChart("#my_dataviz", 'new_confirmed');
