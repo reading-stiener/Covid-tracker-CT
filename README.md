@@ -1,72 +1,43 @@
-# Getting Started with Create React App
+# Covid-tracker-CT
+Covid tracker app for Connecticut
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# App idea
+This is an covid data visualization project. I currently plan to focus mostly on the Connecticut's covid data. I plan to use the publicly
+covid dataset provided by google for this project. Some things I could visualize are: 
 
-## Available Scripts
+- Current number of cases by county
+- Current number of beds available by county 
+- State of vaccinations by county
+- Death toll in county by month
 
-In the project directory, you can run:
+# Stacks used (Plan to use)
+- Database: Google Big Query
+- Server for API - express
+- Data visuals - d3.js
+- Frontend - Vanilla html/javascript (migrating to react soon)
 
-### `npm start`
+# How to run the project so far
+The project is still barebones and is a little messy. Will need to clean up the folder structure. For now the source code in the src are primarily used
+## Step 1: Set up project/connection to Big Query
+- First create a project in [google cloud console](https://console.cloud.google.com/home/dashboard) to start. 
+- Next go to IAM tab and create a [service account](https://console.cloud.google.com/iam-admin/serviceaccounts) with at least editor access.
+- Use the service account to generate and download a key in json format. You'll use this to access BigQuery and other gcloud services locally. 
+- Execute the following on terminal to set up gcloud access permissions
+  ```bash
+  export GOOGLE_APPLICATION_CREDENTIALS="KEY_PATH"
+  ```
+## Step 2: Fire up the server
+Right now the project is really in test mode. So it's mostly involved setting up the back end right and a little bit of data viz work to visualize the data. 
+Navigate to `src` directory and execute: 
+  ```bash
+  node appExpress.js 
+  ```
+to see some real time covid data in CT!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Some visuals
+Here is the live [link!](https://6ae9a61476c5.ngrok.io)
+Here is a linechart that shows confirmed cases in CT over time
+<img src="/covid-tracker/public/LineGraph.png" alt="linechart"/> 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
+Here is a map chloropleth for the same metric for each county in CT
+<img src="/covid-tracker/public/CT_map.png" alt="chloropleth"/> 
