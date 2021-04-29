@@ -33,3 +33,10 @@ Navigate to `src` directory and execute:
   node appExpress.js 
   ```
 to see some real time covid data in CT!
+
+# Some visuals
+Here is a linechart that shows confirmed cases in CT over time
+<img src="/covid-tracker/public/LineGraph.png" alt="linechart"/> 
+
+Here is a map chloropleth for the same metric for each county in CT
+<img src="/covid-tracker/public/CT_map.png" alt="chloropleth"/> 
