@@ -41,3 +41,4 @@ Here is a linechart that shows confirmed cases in CT over time
 
 Here is a map chloropleth for the same metric for each county in CT
 <img src="/covid-tracker/public/CT_map.png" alt="chloropleth"/> 
+src

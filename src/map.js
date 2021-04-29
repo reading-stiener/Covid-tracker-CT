@@ -5,14 +5,7 @@ async function drawMap(selector, metric) {
 
   // the svg 
   var svg = d3.select(selector)
-    // Container class to make it responsive.
-    // .classed("svg-container", true) 
     .append("svg")
-    // // Responsive SVG needs these 2 attributes and no width and height attr.
-    // .attr("preserveAspectRatio", "xMinYMin meet")
-    // .attr("viewBox", "0 0 1000 960")
-    // // Class to make it responsive.
-    // .classed("svg-content-responsive", true)
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
 
@@ -69,7 +62,7 @@ async function drawMap(selector, metric) {
     .remove();
 
   var promises = [
-    d3.json("ct-merge-topo.json", data => console.log(data)),
+    d3.json("public/map_json_files/ct-merge-topo.json", data => console.log(data)),
     fetch("https://6ae9a61476c5.ngrok.io/covidgendata?type=countyAgg")
       .then(data => data.json())
       .then(data => {
