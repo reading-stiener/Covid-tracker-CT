@@ -13,7 +13,7 @@ async function drawLineChart(selector, metric) {
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-  fetch("https://6ae9a61476c5.ngrok.io/covidgendata?type=state")
+  fetch("http://localhost:3000/covidgendata?type=state")
   .then(data => data.json())
   .then(data => {
     var x = d3.scaleTime()
