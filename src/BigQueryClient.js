@@ -33,7 +33,8 @@ FROM
 WHERE 
   LOWER(covid.country_name) LIKE "%united states of america%" AND 
   covid.aggregation_level = 1 AND
-  covid.subregion1_code = "CT"
+  covid.subregion1_code = "CT" AND
+  covid.date >= "2021-01-01" 
 ORDER BY covid.date desc
 `
 
