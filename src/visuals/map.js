@@ -6,8 +6,11 @@ async function drawMap(selector, metric) {
   // the svg 
   var svg = d3.select(selector)
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("id", "svg-map")
+    .attr("viewBox", "0 0 " + width + " " + height )
+    .attr("preserveAspectRatio", "xMinYMin")
+    // .attr("width", width + margin.left + margin.right)
+    // .attr("height", height + margin.top + margin.bottom)
 
   // tooltip component
   var tooltip = d3.select(selector).append('div')
@@ -63,7 +66,7 @@ async function drawMap(selector, metric) {
 
   var promises = [
     d3.json("https://raw.githubusercontent.com/reading-stiener/Covid-tracker-CT/main/public/map_json_files/ct-merge-topo.json", data => console.log(data)),
-    fetch("http://localhost:3000/covidgendata?type=countyAgg")
+    fetch("https://b6f34df26dd1.ngrok.io/covidgendata?type=countyAgg")
       .then(data => data.json())
       .then(data => {
         data.forEach(element => {
@@ -108,4 +111,3 @@ async function drawMap(selector, metric) {
   }
 }
 
-drawMap("#map_viz", "new_confirmed");
