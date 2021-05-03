@@ -35,7 +35,7 @@ Navigate to `src` directory and execute:
 to see some real time covid data in CT!
 
 # Some visuals
-Here is the live [link!](https://6ae9a61476c5.ngrok.io)
+Here is the live [link!](https://b6f34df26dd1.ngrok.io)
 Here is a linechart that shows confirmed cases in CT over time
 <img src="/covid-tracker/public/LineGraph.png" alt="linechart"/> 
 
