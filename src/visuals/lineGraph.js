@@ -58,4 +58,4 @@ async function drawLineChart(selector, metric) {
   })
 }
 
-drawLineChart("#my_dataviz", 'new_confirmed');
+drawLineChart("#my_dataviz", 'new_persons_fully_vaccinated');
