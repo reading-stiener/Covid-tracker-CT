@@ -33,7 +33,7 @@ async function drawMap(selector, metric) {
 
   var g = svg.append("g")
   .attr("class", "key")
-  .attr("transform", "translate(-100,0)");
+  .attr("transform", "translate(-80,50)");
 
   g.selectAll("rect")
     .data(colorScale.range().map(function(d) {
@@ -51,7 +51,7 @@ async function drawMap(selector, metric) {
   g.append("text")
   .attr("class", "caption")
   .attr("x", legendScale.range()[0])
-  .attr("y", -6)
+  .attr("y", -20)
   .attr("fill", "#000")
   .attr("text-anchor", "start")
   .attr("font-weight", "bold")

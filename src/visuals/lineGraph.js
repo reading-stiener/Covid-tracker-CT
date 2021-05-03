@@ -29,7 +29,8 @@ async function drawLineChart(selector, metric) {
     
 
     svg.append("g")
-    .style("font", "20px times") 
+    .style("font", "20px times")
+    .attr("class", "caption")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x)
             .tickFormat(d3.timeFormat("%b %y")));
