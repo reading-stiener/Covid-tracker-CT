@@ -30,7 +30,7 @@ The project is still barebones and is a little messy. Will need to clean up the 
 Right now the project is really in test mode. So it's mostly involved setting up the back end right and a little bit of data viz work to visualize the data. 
 Navigate to `src` directory and execute: 
   ```bash
-  node appExpress.js 
+  npm start
   ```
 to see some real time covid data in CT!
 
