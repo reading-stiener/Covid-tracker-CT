@@ -35,13 +35,15 @@ div.tooltip  {
 }
 
 #svg-map { 
-  width: 1000px;
-  height: auto; 
+  width: 45%;
+  height: auto;
+  float: left;
 }
 
 #svg-line { 
-  width: 1500px;
+  width: 55%;
   height: auto; 
+  float: left; 
 }
 
 /* Use a media query to add a breakpoint at 800px: */

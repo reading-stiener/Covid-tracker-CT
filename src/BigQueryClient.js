@@ -85,7 +85,7 @@ SELECT
   SUM(covid.new_confirmed) as new_confirmed, 
   SUM(covid.new_deceased) as new_deceased,
   SUM(covid.new_persons_vaccinated) as new_person_vaccinated, 
-  SUM(covid.new_persons_fully_vaccinated) as new_persons_fully_vacinated,
+  SUM(covid.new_persons_fully_vaccinated) as new_persons_fully_vaccinated,
 FROM
   \`bigquery-public-data.covid19_open_data.covid19_open_data\` covid
 WHERE 

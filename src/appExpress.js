@@ -6,6 +6,10 @@ const { queryBQ, stateQuery, countyQuery, countyAgg } = require("./BigQueryClien
 const app = express();
 const port = 3000;
 
+// setting up templating engine
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+
 // confifuring middlewares
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,12 +17,16 @@ app.use(bodyParser.json());
 app.use("/", express.static(__dirname));
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname+ "/test_template.html");
+    res.render("index", {metric: "new_vaccinated"});
 });
 
 app.post("/", (req, res) => { 
-    console.log(req.body); 
-    res.send("received your request!!");
+    var body = req.body;
+    if (body && body.metric) { 
+        res.render("index", {metric: body.metric});
+    } else { 
+        res.render("index", {metric: "new_vaccinated"});
+    }
 });
 
 app.get("/covidgendata", async (req, res) => {
