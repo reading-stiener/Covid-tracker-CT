@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use("/", express.static(__dirname));
 
 app.get("/", (req, res) => {
-    res.render("index", {metric: "new_vaccinated"});
+    res.render("index", {metric: "new_confirmed"});
 });
 
 app.post("/", (req, res) => { 

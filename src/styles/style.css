@@ -1,8 +1,24 @@
+* { 
+  font-family: 'Roboto Mono';
+  background-color: #FAF9F6;
+  padding:1em;
+}
+
+h1 { 
+  font-weight: bold;
+  /* padding: 1em; */
+}
+
+h4 { 
+  /* padding: 1em; */
+  font-weight: 100;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -34,25 +50,39 @@ div.tooltip  {
   position: absolute;
 }
 
-#svg-map { 
+
+
+#map1 { 
   width: 45%;
   height: auto;
   float: left;
 }
 
-#svg-line { 
+#my_dataviz { 
   width: 55%;
   height: auto; 
   float: left; 
 }
 
 /* Use a media query to add a breakpoint at 800px: */
-@media screen and (max-width: 1500px) {
-  #svg-map {
+@media screen and (max-width: 1000px) {
+  #map1 {
     width: 100%; }
-  #svg-line { 
+  #my_dataviz { 
     width: 100%;
   }
-
+  footer { 
+    margin-top: 5%;
+  }
 }
 
+.footer { 
+  transform: translate(0,-10%);
+}
+footer {
+  width: 100%;
+  float: left;
+  text-align: center;
+  /* background-color: DarkSalmon; */
+  /* color: white; */
+}

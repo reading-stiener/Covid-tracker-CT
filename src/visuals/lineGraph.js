@@ -1,8 +1,8 @@
 async function drawLineChart(selector, metric) { 
   // set the dimensions and margins of the graph
-  var margin = {top: 10, right: 30, bottom: 30, left: 60},
+  var margin = {top: 80, right: 30, bottom: 30, left: 100},
   width = 1500 - margin.left - margin.right,
-  height = 800 - margin.top - margin.bottom;
+  height = 1000 - margin.top - margin.bottom;
 
   // setting up stroke colors
   if (metric == 'new_deceased') { 
@@ -21,7 +21,7 @@ async function drawLineChart(selector, metric) {
   .attr("id", "svg-line")
   // .attr("width", width + margin.left + margin.right)
   // .attr("height", height + margin.top + margin.bottom)
-  .attr("viewBox", "0 0 " + 1500 + " " + 800 )
+  .attr("viewBox", "0 0 " + 1500 + " " + 1000 )
   .attr("preserveAspectRatio", "xMinYMin")
   .append("g")
   .attr("transform",
@@ -48,7 +48,7 @@ async function drawLineChart(selector, metric) {
 
     // Add Y axis
     var y = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) { return d[metric]; })])
+    .domain([d3.min(data, function(d) { return d[metric]; }), d3.max(data, function(d) { return d[metric]; })])
     .range([ height, 0 ]);
 
     svg.append("g")
