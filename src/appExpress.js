@@ -25,7 +25,7 @@ app.post("/", (req, res) => {
     if (body && body.metric) { 
         res.render("index", {metric: body.metric});
     } else { 
-        res.render("index", {metric: "new_vaccinated"});
+        res.render("index", {metric: "new_confirmed"});
     }
 });
 

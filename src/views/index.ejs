@@ -17,14 +17,17 @@
           <option value="new_confirmed">New confirmed</option>
           <option value="new_deceased">Deaths</option>
           <option value="new_person_vaccinated">Vaccinnated</option>
-          <option value="new_persons_fully_vacinnated">Fully vacinnated</option>
+          <option value="new_persons_fully_vaccinated">Fully vacinnated</option>
         </select>
-        <br><br>
         <input type="submit" value="Submit">
       </form>
     </div>
-    <div id="map1"></div> 
-    <div id="my_dataviz"></div>
+    <div id="map1">
+      <h3>Connecticut map showing <%=metric%> by county</h3>
+    </div> 
+    <div id="my_dataviz">
+      <h3>Line chart showing <%=metric%> in connecticut over time</h3>
+    </div>
     <script src="https://d3js.org/d3.v5.min.js"></script> 
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>

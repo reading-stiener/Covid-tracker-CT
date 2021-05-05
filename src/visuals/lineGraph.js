@@ -4,6 +4,17 @@ async function drawLineChart(selector, metric) {
   width = 1500 - margin.left - margin.right,
   height = 800 - margin.top - margin.bottom;
 
+  // setting up stroke colors
+  if (metric == 'new_deceased') { 
+    var strokeColor = "#ef3b2c";
+  } else if (metric == 'new_confirmed') { 
+    var strokeColor = "#6baed6"; 
+  } else if (metric == 'new_persons_fully_vaccinated') { 
+    var strokeColor = "#238b45"; 
+  } else { 
+    var strokeColor = 'gray'; 
+  }
+
   // append the svg object to the body of the page
   var svg = d3.select(selector)
   .append("svg")
@@ -48,7 +59,7 @@ async function drawLineChart(selector, metric) {
     svg.append("path")
     .datum(data)
     .attr("fill", "none")
-    .attr("stroke", "steelblue")
+    .attr("stroke", strokeColor)
     .attr("stroke-width", 3)
     .attr("d", d3.line()
       .defined(d => (!isNaN(d[metric]) || d[metric]!=0))

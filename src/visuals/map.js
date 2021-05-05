@@ -7,6 +7,17 @@ async function drawMap(selector, metric) {
   var metricData  = new Map();
   var fipsToCounty = new Map();
 
+  // setting up color scheme for maps 
+  if (metric == 'new_deceased') { 
+    var colorScheme = d3.schemeReds;
+  } else if (metric == 'new_confirmed') { 
+    var colorScheme = d3.schemeBlues; 
+  } else if (metric == 'new_persons_fully_vaccinated') { 
+    var colorScheme = d3.schemeGreens; 
+  } else { 
+    var colorScheme = d3.schemeGreys; 
+  }
+
   var promises = [
     d3.json("https://raw.githubusercontent.com/reading-stiener/Covid-tracker-CT/main/public/map_json_files/ct-merge-topo.json", data => console.log(data)),
     fetch("https://b6f34df26dd1.ngrok.io/covidgendata?type=countyAgg")
@@ -43,7 +54,7 @@ async function drawMap(selector, metric) {
 
     var colorScale = d3.scaleThreshold()
     .domain(d3.range(2, 10))
-    .range(d3.schemeBlues[9]);
+    .range(colorScheme[9]);
 
     var g = svg.append("g")
     .attr("class", "key")
