@@ -1,26 +1,26 @@
 * { 
   font-family: 'Roboto Mono';
-  background-color: #FAF9F6;
-  padding:1em;
 }
 
-h1 { 
+.heading { 
+  margin-bottom: 0.5em; 
+  /* padding: 0.5em; */
+}
+
+h1, h4, h5, h6 { 
   font-weight: bold;
-  /* padding: 1em; */
-}
-
-h4 { 
-  /* padding: 1em; */
   font-weight: 100;
 }
 
-body {
-  margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
+.body {
+  padding: 1em;
+  background-color: #FAF9F6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.form { 
+  margin-bottom: 2em;
 }
 
 code {
@@ -50,7 +50,10 @@ div.tooltip  {
   position: absolute;
 }
 
-
+.visuals { 
+  overflow: hidden;
+  margin-bottom: -4em;
+}
 
 #map1 { 
   width: 45%;
@@ -67,12 +70,17 @@ div.tooltip  {
 /* Use a media query to add a breakpoint at 800px: */
 @media screen and (max-width: 1000px) {
   #map1 {
-    width: 100%; }
+    width: 100%; 
+  }
   #my_dataviz { 
     width: 100%;
   }
   footer { 
     margin-top: 5%;
+    font-size: 0.5em;
+  }
+  .visuals { 
+    margin-bottom: 0;
   }
 }
 

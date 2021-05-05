@@ -34,6 +34,7 @@ WHERE
   LOWER(covid.country_name) LIKE "%united states of america%" AND 
   covid.aggregation_level = 1 AND
   covid.subregion1_code = "CT"
+  --COALESCE(covid.new_persons_fully_vaccinated, 0) >= 0
 ORDER BY covid.date desc
 `
 
@@ -79,6 +80,8 @@ SELECT
   covid.subregion2_name AS county,
   covid.subregion2_code AS fips,
   covid.location_key AS combined_key,
+  cumulative_fully_vaccinated.* except (county),
+  cumulative_confirmed_deceased.* except (county),
   SUM(covid.cumulative_confirmed) AS confirmed,
   SUM(covid.cumulative_deceased) AS deaths,
   SUM(covid.cumulative_recovered) AS recovered,
@@ -88,11 +91,42 @@ SELECT
   SUM(covid.new_persons_fully_vaccinated) as new_persons_fully_vaccinated,
 FROM
   \`bigquery-public-data.covid19_open_data.covid19_open_data\` covid
+LEFT JOIN (
+    SELECT
+        subregion2_name AS county,
+        cumulative_persons_fully_vaccinated,
+    FROM  
+        \`bigquery-public-data.covid19_open_data.covid19_open_data\`
+    WHERE 
+        LOWER(country_name) LIKE "%united states of america%" AND 
+        aggregation_level = 2 AND
+        subregion1_code = "CT" AND 
+        cumulative_persons_fully_vaccinated > 0
+    ORDER BY date desc
+    LIMIT 8
+) cumulative_fully_vaccinated
+ON covid.subregion2_name = cumulative_fully_vaccinated.county
+LEFT JOIN (
+    SELECT
+        subregion2_name AS county,
+        cumulative_confirmed,
+        cumulative_deceased,
+    FROM  
+        \`bigquery-public-data.covid19_open_data.covid19_open_data\`
+    WHERE 
+        LOWER(country_name) LIKE "%united states of america%" AND 
+        aggregation_level = 2 AND
+        subregion1_code = "CT" AND 
+        cumulative_confirmed > 0
+    ORDER BY date desc
+    LIMIT 8
+) cumulative_confirmed_deceased
+ON covid.subregion2_name = cumulative_confirmed_deceased.county 
 WHERE 
   LOWER(covid.country_name) LIKE "%united states of america%" AND 
   covid.aggregation_level = 2 AND
   covid.subregion1_code = "CT"
-GROUP BY 1,2,3
+GROUP BY 1,2,3,4,5,6
 `
 
 async function queryBQ(query) { 
