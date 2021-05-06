@@ -72,25 +72,39 @@ div.tooltip  {
   #map1 {
     width: 100%; 
   }
+
   #my_dataviz { 
     width: 100%;
   }
+
   footer { 
     margin-top: 5%;
     font-size: 0.5em;
   }
+
   .visuals { 
     margin-bottom: 0;
+  }
+
+  .emoji { 
+    font-size: 1em;
   }
 }
 
 .footer { 
   transform: translate(0,-10%);
 }
+
 footer {
   width: 100%;
   float: left;
   text-align: center;
-  /* background-color: DarkSalmon; */
-  /* color: white; */
+}
+
+.emoji { 
+  font-size: 1em;
+}
+
+.heart { 
+  color: #e25555;
 }
