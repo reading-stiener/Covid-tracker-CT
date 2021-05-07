@@ -28,9 +28,10 @@ code {
     monospace;
 }
 
-.hidden { 
+/* .hidden { 
   display: none;
-}
+} */
+
 .province { 
   /* fill: #000; */
   stroke: #fff;
@@ -48,6 +49,8 @@ div.tooltip  {
   border-radius: 2px;
   opacity: 0.8;
   position: absolute;
+  border-radius: 1em;
+  display: block;
 }
 
 .visuals { 
@@ -88,6 +91,10 @@ div.tooltip  {
 
   .emoji { 
     font-size: 1em;
+  }
+
+  div.tooltip { 
+    font-size: 2vw;
   }
 }
 

@@ -43,7 +43,7 @@ async function drawMap(selector, metric) {
 
     // tooltip component
     var tooltip = d3.select(selector).append('div')
-    .attr('class', 'hidden tooltip');
+    .attr('class', 'tooltip');
 
     // Map and projection
     var path = d3.geoPath();
@@ -74,13 +74,13 @@ async function drawMap(selector, metric) {
       .attr("fill", function(d) { return colorScale(d[0]); });
 
     g.append("text")
-    .attr("class", "caption")
-    .attr("x", legendScale.range()[0])
-    .attr("y", -20)
-    .attr("fill", "#000")
-    .attr("text-anchor", "start")
-    .attr("font-weight", "bold")
-    .text(metric);
+      .attr("class", "caption")
+      .attr("x", legendScale.range()[0])
+      .attr("y", -20)
+      .attr("fill", "#000")
+      .attr("text-anchor", "start")
+      .attr("font-weight", "bold")
+      .text(metric);
 
     console.log(legendScale.domain());
     console.log(legendScale.range())
@@ -114,22 +114,20 @@ async function drawMap(selector, metric) {
         return colorScale(d[metric] = scaleVal); 
     })
     .attr('d', path)
-    .on('mousemove', d => {
-      var mouse = d3.mouse(svg.node()).map(d => {
-        return parseInt(d);
-      })
-      tooltip.classed('hidden', false)
-        .attr('style', 'left:' + (mouse[0])
-            +'px; top:' +  (mouse[1]) + 'px')
-        .attr('border-color', 'black')
-          .html(
-            '<span>' + fipsToCounty.get('09' +  d.id) + '</span> <br>'+
-            '<span>'+ metricData.get('09' +  d.id) + ' '+ metric + '</span>'
-          )
+    .on('mouseover', d => {
+      tooltip
+        .style('left', (d3.event.pageX - 100)+'px')
+        .style('top', (d3.event.pageY - 50)+'px')
+        .style('display', 'block')
+        .html(
+          '<span>' + fipsToCounty.get('09' +  d.id) + '</span> <br>'+
+          '<span>'+ metricData.get('09' +  d.id) + ' '+ metric + '</span>'
+        )
     })
-    .on('mouseout', () => { 
-      tooltip.classed('hidden', true);
-    })
+    // .on('mouseout', d => { 
+    //   tooltip.attr('class', 'tooltip')
+    //     .style('display', 'none');
+    // })
   }
 }
 
