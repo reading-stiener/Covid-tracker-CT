@@ -27,7 +27,7 @@ async function drawLineChart(selector, metric) {
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-  fetch("http://localhost:5001/covid-visualization-ct-app/us-central1/app/covidgendata?type=state")
+  fetch("https://us-central1-covid-visualization-ct-app.cloudfunctions.net/app/covidgendata?type=state")
   .then(data => data.json())
   .then(data => {
     
