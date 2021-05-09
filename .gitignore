@@ -124,3 +124,7 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# firebase stuff
+firebase_cred.txt
+
