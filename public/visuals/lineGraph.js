@@ -27,7 +27,7 @@ async function drawLineChart(selector, metric) {
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-  fetch(" https://b6f34df26dd1.ngrok.io/covidgendata?type=state")
+  fetch("http://localhost:5001/covid-visualization-ct-app/us-central1/app/covidgendata?type=state")
   .then(data => data.json())
   .then(data => {
     

@@ -20,7 +20,7 @@ async function drawMap(selector, metric) {
 
   var promises = [
     d3.json("https://raw.githubusercontent.com/reading-stiener/Covid-tracker-CT/main/public/map_json_files/ct-merge-topo.json", data => console.log(data)),
-    fetch("https://b6f34df26dd1.ngrok.io/covidgendata?type=countyAgg")
+    fetch("http://localhost:5001/covid-visualization-ct-app/us-central1/app/covidgendata?type=countyAgg")
       .then(data => data.json())
       .then(data => {
         data.forEach(element => {

@@ -1,5 +1,5 @@
-const {BigQuery} = require('@google-cloud/bigquery');
-const bigqueryClient = new BigQuery(); 
+const {BigQuery} = require("@google-cloud/bigquery");
+const bigqueryClient = new BigQuery();
 
 // relevant queries
 const stateQuery = `
@@ -23,7 +23,8 @@ SELECT
     WHEN covid.cumulative_confirmed is NULL THEN NULL
     WHEN covid.cumulative_deceased is NULL THEN NULL
     WHEN covid.cumulative_recovered is NULL THEN NULL
-    ELSE (covid.cumulative_confirmed-covid.cumulative_recovered-covid.cumulative_deceased)
+    ELSE (covid.cumulative_confirmed-
+      covid.cumulative_recovered-covid.cumulative_deceased)
     END
   AS active,
   covid.subregion2_code AS fips,
@@ -36,7 +37,7 @@ WHERE
   covid.subregion1_code = "CT"
   --COALESCE(covid.new_persons_fully_vaccinated, 0) >= 0
 ORDER BY covid.date desc
-`
+`;
 
 // county level agg query
 const countyQuery = `
@@ -60,7 +61,8 @@ SELECT
     WHEN covid.cumulative_confirmed is NULL THEN NULL
     WHEN covid.cumulative_deceased is NULL THEN NULL
     WHEN covid.cumulative_recovered is NULL THEN NULL
-    ELSE (covid.cumulative_confirmed-covid.cumulative_recovered-covid.cumulative_deceased)
+    ELSE (covid.cumulative_confirmed-
+      covid.cumulative_recovered-covid.cumulative_deceased)
     END
   AS active,
   covid.subregion2_code AS fips,
@@ -72,7 +74,7 @@ WHERE
   covid.aggregation_level = 2 AND
   covid.subregion1_code = "CT"
 ORDER BY covid.date desc
-`
+`;
 
 // county aggregates
 const countyAgg = `
@@ -127,20 +129,28 @@ WHERE
   covid.aggregation_level = 2 AND
   covid.subregion1_code = "CT"
 GROUP BY 1,2,3,4,5,6
-`
+`;
 
-async function queryBQ(query) { 
-    const options = {
-        query: query,
-        // Location must match that of the dataset(s) referenced in the query.
-        location: 'US',
-    };
-    // run the query 
-    const [rows] = await bigqueryClient.query(options);
-    console.log('Query processed');
-    return rows;
+/**
+ *
+ * @param {string} query in SQL syntax
+ * @return {array} array of SQL rows in json format
+ */
+async function queryBQ(query) {
+  const options = {
+    query: query,
+    // Location must match that of the dataset(s) referenced in the query.
+    location: "US",
+  };
+  // run the query
+  const [rows] = await bigqueryClient.query(options);
+  console.log("Query processed");
+  return rows;
 }
 
-module.exports = { queryBQ, stateQuery, countyQuery, countyAgg }; 
-
-  
+module.exports = {
+  queryBQ,
+  stateQuery,
+  countyQuery,
+  countyAgg,
+};
